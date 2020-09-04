@@ -1,3 +1,3 @@
-# my-rpc-framework
+# MyRPC
 This is a simple RPC framework.
 # 抱歉，还没写好，正在努力！
