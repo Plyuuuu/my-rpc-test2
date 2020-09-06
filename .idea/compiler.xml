@@ -7,9 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="test-service-provider" />
         <module name="rpc-test" />
         <module name="rpc-simple" />
+        <module name="test-gmall-interface" />
+        <module name="test-service-consumer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rpc-basal" target="12" />
+    </bytecodeTargetLevel>
   </component>
 </project>
