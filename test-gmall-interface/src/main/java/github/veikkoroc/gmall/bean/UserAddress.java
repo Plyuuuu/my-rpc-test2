@@ -16,6 +16,7 @@ public class UserAddress implements Serializable {
     private String isDefault;
     public UserAddress(){
 
+
     }
 
     @Override
