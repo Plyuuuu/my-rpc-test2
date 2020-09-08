@@ -1,7 +1,7 @@
 package github.veikkoroc.remote.entry;
 
 import github.veikkoroc.enumeration.RpcMessageType;
-import lombok.Getter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -14,7 +14,11 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2020/9/3 21:15
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Builder
+@ToString
 public class RpcRequest implements Serializable {
     private static final long serialVersionID = 202009032124L;  //随便设，就设为日期时间吧
     private String requestId;                                   //请求编号

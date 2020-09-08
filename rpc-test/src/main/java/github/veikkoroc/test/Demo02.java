@@ -1,5 +1,10 @@
 package github.veikkoroc.test;
 
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * @author Veikko Roc
  * @version 1.0
@@ -8,5 +13,12 @@ package github.veikkoroc.test;
 public class Demo02 {
     public static void main(String[] args) {
         System.out.println(1);
+        //HashMap
+        ArrayList arrayList = new ArrayList();
+
+    }
+    @Test
+    public void test01(){
+
     }
 }

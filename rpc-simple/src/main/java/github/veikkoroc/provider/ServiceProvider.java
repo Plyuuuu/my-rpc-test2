@@ -1,0 +1,34 @@
+package github.veikkoroc.provider;
+
+import github.veikkoroc.remote.entry.RpcServiceProperties;
+
+/**
+ * @author Veikko Roc
+ * @version 1.0
+ * @date 2020/9/8 9:20
+ */
+public interface ServiceProvider {
+    /**
+     * @param service              service object
+     * @param serviceClass         the interface class implemented by the service instance object
+     * @param rpcServiceProperties service related attributes
+     */
+    void addService(Object service, Class<?> serviceClass, RpcServiceProperties rpcServiceProperties);
+
+    /**
+     * @param rpcServiceProperties service related attributes
+     * @return service object
+     */
+    Object getService(RpcServiceProperties rpcServiceProperties);
+
+    /**
+     * @param service              service object
+     * @param rpcServiceProperties service related attributes
+     */
+    void publishService(Object service, RpcServiceProperties rpcServiceProperties);
+
+    /**
+     * @param service service object
+     */
+    void publishService(Object service);
+}

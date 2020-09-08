@@ -11,7 +11,6 @@
     <modules>
         <module>rpc-test</module>
         <module>rpc-simple</module>
-        <module>rpc-basal</module>
         <module>test-service-provider</module>
         <module>test-service-consumer</module>
         <module>test-gmall-interface</module>
