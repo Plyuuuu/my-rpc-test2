@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class RpcClientProxy implements InvocationHandler {
     /**
-     * 用于向服务器发送请求。
+     *   用于向服务器发送 请求。
      */
     private final ClientTransport clientTransport;
     private final RpcServiceProperties rpcServiceProperties;
