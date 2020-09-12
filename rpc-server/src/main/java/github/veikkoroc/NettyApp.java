@@ -31,7 +31,7 @@ public class NettyApp {
         //.serviceName("")后面根据UserService动态获取
         RpcServiceProperties rpcServiceProperties = RpcServiceProperties.builder().group("1").version("1.0").build();
 
-        //手动注册服务UserServiceImpl
+        //手动注册服务 UserServiceImpl
         nettyServer.registerService(userService,rpcServiceProperties);
 
 
