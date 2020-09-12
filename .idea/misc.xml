@@ -5,6 +5,11 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/rpc-test/pom.xml" />
+        <option value="$PROJECT_DIR$/rpc-simple/pom.xml" />
+        <option value="$PROJECT_DIR$/test-gmall-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/test-service-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/test-service-provider/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

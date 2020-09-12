@@ -10,8 +10,8 @@ import github.veikkoroc.remote.entry.RpcRequest;
 public interface ClientTransport {
     /**
      *
-     * @param rpcRequest
-     * @return  result from server
+     * @param rpcRequest  请求对象
+     * @return  服务器返回请求结果
      */
    public Object sendRpcRequest(RpcRequest rpcRequest);
 }

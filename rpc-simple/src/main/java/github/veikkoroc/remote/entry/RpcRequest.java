@@ -17,6 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @ToString
 public class RpcRequest implements Serializable {
@@ -26,7 +27,7 @@ public class RpcRequest implements Serializable {
     private String methodName;                                  //调用的方法名
     private Object[] parameters;                                //传入的参数
 
-    private Class<?> paramTypes;                                //传入参数的类型
+    private Class<?>[] paramTypes;                                //传入参数的类型
 
     private RpcMessageType rpcMessageType ;                     //信息类型
 

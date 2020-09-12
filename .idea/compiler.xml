@@ -12,10 +12,10 @@
         <module name="test-service-provider" />
         <module name="test-service-consumer" />
         <module name="test-gmall-interface" />
+        <module name="rpc-api" />
+        <module name="rpc-server" />
+        <module name="rpc-client" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rpc-basal" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

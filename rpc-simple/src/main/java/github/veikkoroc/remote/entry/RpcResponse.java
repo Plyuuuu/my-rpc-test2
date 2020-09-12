@@ -1,6 +1,7 @@
 package github.veikkoroc.remote.entry;
 
 
+import lombok.Getter;
 import lombok.Setter;
 import github.veikkoroc.enumeration.RpcResponseCode;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2020/9/3 21:15
  */
+@Getter
 @Setter
 public class RpcResponse<T> implements Serializable {
     private static final long serialVersionUID = 202009032227L;

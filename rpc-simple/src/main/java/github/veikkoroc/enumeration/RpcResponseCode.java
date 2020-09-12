@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 @Getter
 public enum RpcResponseCode {
-    SUCCESS(200,"The remote call is successful!"),
-    FAIL(500,"The remote call is failed!");
+    SUCCESS(200,"远程调用成功"),
+    FAIL(500,"远程调用失败");
     private final int code;
     private final String message;
 }

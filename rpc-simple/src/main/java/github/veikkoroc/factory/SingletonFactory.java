@@ -10,6 +10,7 @@ import java.util.Map;
  * @createTime 2020年06月03日 15:04:00
  */
 public final class SingletonFactory {
+    //缓存
     private static final Map<String, Object> OBJECT_MAP = new HashMap<>();
 
     private SingletonFactory() {
