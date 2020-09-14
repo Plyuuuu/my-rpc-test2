@@ -13,8 +13,9 @@ import java.util.HashMap;
 public class Demo02 {
     public static void main(String[] args) {
         System.out.println(1);
-        //HashMap
+        HashMap h = new HashMap();
         ArrayList arrayList = new ArrayList();
+        new String();
 
     }
     @Test

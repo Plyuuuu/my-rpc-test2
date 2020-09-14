@@ -1,5 +1,9 @@
 package github.veikkoroc.test.proxy.jdkProxy;
 
+import org.junit.Test;
+
+import java.util.Arrays;
+
 /**
  * @author Veikko Roc
  * @version 1.0
@@ -10,5 +14,14 @@ public class SendMessageImpl implements SendMessage {
     public String sendMessage(String message) {
         System.out.println("send message:" + message);
         return message;
+    }
+    @Test
+    public void test(){
+        System.out.println(SendMessage.class);
+        Class<?>[] classes = {SendMessage.class};
+        System.out.println(Arrays.toString(classes));
+        System.out.println(SendMessageImpl.class);
+        Class<?>[] classes1 = {SendMessageImpl.class};
+        System.out.println(Arrays.toString(classes1));
     }
 }
