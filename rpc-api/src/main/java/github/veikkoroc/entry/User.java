@@ -14,10 +14,16 @@ import lombok.*;
 @Builder
 @ToString
 public class User {
-    //用户编号
+    /**
+        用户编号
+     */
     private Integer userId;
-    //用户姓名
+    /**
+     * 用户姓名
+     */
     private String username;
-    //用户年龄
+    /**
+     * 用户年龄
+     */
     private Integer age;
 }
