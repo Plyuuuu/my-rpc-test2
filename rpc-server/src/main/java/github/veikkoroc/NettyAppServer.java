@@ -1,10 +1,8 @@
 package github.veikkoroc;
 
-import github.veikkoroc.provider.impl.ServiceProviderImpl;
 import github.veikkoroc.remote.entry.RpcServiceProperties;
 import github.veikkoroc.remote.transport.netty.server.NettyServer;
 import github.veikkoroc.service.impl.UserServiceImpl;
-import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -14,11 +12,11 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2020/9/11 16:02
  */
 @ComponentScan("github.veikkoroc")
-public class NettyApp {
+public class NettyAppServer {
     public static void main(String[] args) {
         // 1、在Zookeeper注册中心暴露服务
         //把当前类单xml配置类
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(NettyApp.class);
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(NettyAppServer.class);
         NettyServer nettyServer = annotationConfigApplicationContext.getBean(NettyServer.class);
        // System.out.println(nettyServer);
 
