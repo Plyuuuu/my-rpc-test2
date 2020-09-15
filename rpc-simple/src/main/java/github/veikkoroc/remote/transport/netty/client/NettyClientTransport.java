@@ -22,8 +22,21 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class NettyClientTransport implements ClientTransport {
 
+    /**
+     * 发现服务
+     * 获得InetSocketAddress
+     */
     private final ServiceDiscovery serviceDiscovery;
+
+
+    /**
+     * 未处理的消息
+     */
     private final UnProcessedRequests unprocessedRequests;
+
+    /**
+     * 通道提供者
+     */
     private final ChannelProvider channelProvider;
 
     public NettyClientTransport() {
@@ -32,7 +45,7 @@ public class NettyClientTransport implements ClientTransport {
         this.channelProvider = SingletonFactory.getInstance(ChannelProvider.class);
     }
     @Override
-    public Object sendRpcRequest(RpcRequest rpcRequest) {
+    public CompletableFuture<RpcResponse<Object>> sendRpcRequest(RpcRequest rpcRequest) {
         //创建返回值
         CompletableFuture<RpcResponse<Object>> resultFuture = new CompletableFuture<>();
         //通过RPCRequest获得服务名
@@ -41,24 +54,31 @@ public class NettyClientTransport implements ClientTransport {
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcServiceName);
         //获取服务器地址相关通道
         Channel channel = channelProvider.getChannel(inetSocketAddress);
-        if (channel !=null && channel.isActive()){
+        log.info("==========客户端获取的通道[{}]",channel);
+        log.info("==========客户端获取的通道是否活跃[{}]",channel.isActive());
+
+
+
+        if (channel != null && channel.isActive()){
             //存放未处理的请求
             unprocessedRequests.put(rpcRequest.getRequestId(),resultFuture);
+            log.info("==========正在处理的消息存放成功 [{}]",unprocessedRequests);
+            log.info("==========需要发送的RPCRequest [{}]",rpcRequest);
             //发送消息到服务器
             //ChannelFuture的作用是用来保存Channel异步操作的结果。
             //添加ChannelFutureListener，以便于在I/O操作完成的时候，能够获得通知。
             channel.writeAndFlush(rpcRequest).addListener((ChannelFutureListener) future->{
                 if (future.isSuccess()){
-                    log.info("客户端发送消息：[{}]",rpcRequest);
+                    log.info("===========客户端发送消息：[{}]",rpcRequest);
                 } else {
                     future.channel().close();
                     resultFuture.completeExceptionally(future.cause());
-                    log.error("发送失败:",future.cause());
+                    log.error("==========发送失败:[{}]",future.cause());
                 }
             });
 
         }else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("==========在NettyClientTransport抛出异常");
         }
 
         return resultFuture;

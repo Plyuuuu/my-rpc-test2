@@ -43,7 +43,7 @@ public class KryoDecoder extends ByteToMessageDecoder {
             int dataLength = byteBuf.readInt();
             //4.遇到不合理的情况直接 return
             if (dataLength < 0 || byteBuf.readableBytes() < 0) {
-                log.error("数据长度或byteBuf可读字节无效");
+                log.error("==========数据长度或byteBuf可读字节无效");
                 return;
             }
             //5.如果可读字节数小于消息长度的话，说明是不完整的消息，重置readIndex
@@ -57,7 +57,7 @@ public class KryoDecoder extends ByteToMessageDecoder {
             // 将bytes数组转换为我们需要的对象
             Object obj = serializer.deserialize(body, genericClass);
             list.add(obj);
-            log.info("成功将ByteBuf解码为对象");
+            log.info("==========成功将ByteBuf解码为对象");
         }
     }
 }

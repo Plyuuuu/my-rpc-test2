@@ -81,9 +81,9 @@ public class ServiceProviderImpl implements ServiceProvider {
 
     @Override
     public void publishService(Object service, RpcServiceProperties rpcServiceProperties) {
-        try {
+
             log.info("===========要注册的服务[{}] 服务的属性[{}]",service,rpcServiceProperties);
-            String host = InetAddress.getLocalHost().getHostAddress();//127.0.0.1
+            String host = "127.0.0.1";//InetAddress.getLocalHost().getHostAddress();//127.0.0.1
 
             //获取服务对象的接口 interface github.veikkoroc.service.UserService
             Class<?> serviceRelatedInterface = service.getClass().getInterfaces()[0];
@@ -100,9 +100,7 @@ public class ServiceProviderImpl implements ServiceProvider {
             //将服务注册到注册中心
             //   github.veikkoroc.service.UserService11.0,   //192.168.1.101:9998
             serviceRegistry.registryService(rpcServiceProperties.getRpcServicePropertiesFields(), new InetSocketAddress(host, NettyServer.port));
-        } catch (UnknownHostException e) {
-            log.error("getHostAddress时发生异常", e);
-        }
+
     }
 
 

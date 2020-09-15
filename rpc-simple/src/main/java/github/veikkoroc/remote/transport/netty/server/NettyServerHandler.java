@@ -26,6 +26,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     private final RpcRequestHandler rpcRequestHandler;
 
     public NettyServerHandler() {
+
         this.rpcRequestHandler = SingletonFactory.getInstance(RpcRequestHandler.class);
     }
     /**
@@ -40,18 +41,18 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
         try{
-            log.info("NettyServer 接收的信息 [{}]",msg);
+            log.info("==========NettyServer 接收的信息 [{}]",msg);
             RpcRequest rpcRequest = (RpcRequest) msg;
-            log.info("NettyServer 接收的信息 [{}]",rpcRequest);
+
 
             //如果接收到心跳信息,直接return
             if (rpcRequest.getRpcMessageType()== RpcMessageType.HEART_BEAT){
-                log.info("接收到客户端的心跳信息");
+                log.info("==========接收到客户端的心跳信息");
                 return;
             }
             //执行目标方法（客户端需要执行的方法）并返回方法结果
             Object result = rpcRequestHandler.handle(rpcRequest);
-            log.info(String.format("从服务器获得的结果: %s", result.toString()));
+            log.info(String.format("==========从服务器获得的结果: %s", result.toString()));
 
             if (ctx.channel().isActive() && ctx.channel().isWritable()) {
                 RpcResponse<Object> rpcResponse = RpcResponse.success(result, rpcRequest.getRequestId());
@@ -59,7 +60,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             } else {
                 RpcResponse<Object> rpcResponse = RpcResponse.fail(RpcResponseCode.FAIL);
                 ctx.writeAndFlush(rpcResponse).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
-                log.error("现在无法写，消息已删除");
+                log.error("==========现在无法写，消息已删除");
             }
 
 
@@ -73,7 +74,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override//出现异常
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("NettyServer 处理客户端访问出现异常");
+        log.error("=============NettyServer 处理客户端访问出现异常");
         cause.printStackTrace();
         ctx.close();
     }
@@ -82,7 +83,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
             if (state == IdleState.READER_IDLE) {
-                log.info("发生空闲检查，因此关闭连接");
+                log.info("===========发生空闲检查，因此关闭连接");
                 ctx.close();
             }
         } else {

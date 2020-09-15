@@ -47,12 +47,14 @@ public class RpcRequestHandler {
         try{
             //根据目标方法名和参数获得方法对象
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());//public java.lang.String github.veikkoroc.remote.entry.RpcRequest.getMethodName()
-            result = method.invoke(service, rpcRequest.getParamTypes());
+            log.info("==========目标方法：[{}]",method);
 
-            log.info("服务:[{}] 成功调用方法: [{}]",rpcRequest.getInterfaceName(),rpcRequest.getMethodName());
+            result = method.invoke(service, rpcRequest.getParameters());
+
+            log.info("==========服务:[{}] 成功调用方法: [{}]",rpcRequest.getInterfaceName(),rpcRequest.getMethodName());
 
         }catch (NoSuchMethodException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e){
-            throw new RuntimeException("调用目标方法失败",e);
+            throw new RuntimeException("=========调用目标方法失败",e);
         }
         return result;
     }

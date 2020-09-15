@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 自定义的编码器，把要传输的对象编码成字节数组存入ByteBuf中
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
  * @date 2020/9/11 17:16
  */
 @AllArgsConstructor
+@Slf4j
 public class KryoEncoder extends MessageToByteEncoder<Object> {
     private final Serializer serializer;
     private final Class<?> genericClass;
@@ -32,6 +34,7 @@ public class KryoEncoder extends MessageToByteEncoder<Object> {
             byteBuf.writeInt(dataLength);
             //4.将字节数组写入 ByteBuf 对象中
             byteBuf.writeBytes(body);
+            log.info("==========对象编码成功：[{}]",byteBuf.toString());
         }
     }
 }

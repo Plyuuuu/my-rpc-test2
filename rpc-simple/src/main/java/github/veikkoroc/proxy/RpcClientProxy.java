@@ -6,6 +6,7 @@ import github.veikkoroc.remote.entry.RpcResponse;
 import github.veikkoroc.remote.entry.RpcServiceProperties;
 import github.veikkoroc.remote.transport.ClientTransport;
 import github.veikkoroc.remote.transport.netty.client.NettyClientTransport;
+import github.veikkoroc.remote.transport.socket.SocketRpcClient;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,9 +26,12 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class RpcClientProxy implements InvocationHandler {
     /**
-     *   用于向服务器发送 请求。
+     *   用于向服务器发送请求。
      */
     private final ClientTransport clientTransport;
+    /**
+     * 服务属性
+     */
     private final RpcServiceProperties rpcServiceProperties;
 
     public RpcClientProxy(ClientTransport clientTransport, RpcServiceProperties rpcServiceProperties) {
@@ -55,6 +59,14 @@ public class RpcClientProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
         log.info("==========调用方法：[{}]",method.getName());
+        log.info("==========传入参数：[{}]",args.toString());
+        log.info("==========接口名字：[{}]",method.getDeclaringClass().getName());
+        log.info("==========参数类型：[{}]",method.getParameterTypes());
+        log.info("==========请求的ID：[{}]",UUID.randomUUID().toString());
+        log.info("==========组：[{}]",rpcServiceProperties.getGroup());
+        log.info("==========版本：[{}]",rpcServiceProperties.getVersion());
+
+
         RpcRequest rpcRequest = RpcRequest.builder().methodName(method.getName())
                 .parameters(args)
                 .interfaceName(method.getDeclaringClass().getName())
@@ -64,14 +76,18 @@ public class RpcClientProxy implements InvocationHandler {
                 .version(rpcServiceProperties.getVersion())
                 .build();
         RpcResponse<Object> rpcResponse = null;
+        //Netty传输
         if (clientTransport instanceof NettyClientTransport) {
             CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) clientTransport.sendRpcRequest(rpcRequest);
+            log.info("==========completableFuture:[{}]",completableFuture);
+            log.info("==========completableFuture.get():[{}]",completableFuture.get());
             // completableFuture.get()会一直阻塞直到 Future 完成。
             rpcResponse = completableFuture.get();
         }
-        /*if (clientTransport instanceof SocketRpcClient) {
+        //Socket 传输
+        if (clientTransport instanceof SocketRpcClient) {
             rpcResponse = (RpcResponse<Object>) clientTransport.sendRpcRequest(rpcRequest);
-        }*/
+        }
         RpcMessageChecker.check(rpcResponse, rpcRequest);
         return rpcResponse.getData();
     }

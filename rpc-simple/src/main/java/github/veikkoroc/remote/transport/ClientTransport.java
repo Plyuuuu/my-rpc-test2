@@ -3,6 +3,7 @@ package github.veikkoroc.remote.transport;
 import github.veikkoroc.remote.entry.RpcRequest;
 
 /**
+ * 客户传输消息
  * @author Veikko Roc
  * @version 1.0
  * @date 2020/9/4 10:40

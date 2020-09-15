@@ -18,9 +18,18 @@ import lombok.*;
 @ToString           //ToString
 @Builder            //使用Builder模式
 public class RpcServiceProperties {
-    private String version;         //服务版本
-    private String group;           //服务群组
-    private String serviceName;     //服务名称
+    /**
+     * 服务版本
+     */
+    private String version;
+    /**
+     * 服务群组
+     */
+    private String group;
+    /**
+     * 服务名称
+     */
+    private String serviceName;
 
     public String getRpcServicePropertiesFields(){
         return this.getServiceName()+this.getGroup()+this.getVersion();
