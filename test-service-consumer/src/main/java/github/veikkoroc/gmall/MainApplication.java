@@ -14,7 +14,7 @@ public class MainApplication {
         OrderService bean = ioc.getBean(OrderService.class);
         bean.initOrder("1");
         try {
-            Thread.sleep(100000000);
+            Thread.sleep(10000000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

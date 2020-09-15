@@ -13,7 +13,7 @@ public class MainApplication {
         ClassPathXmlApplicationContext ioc = new ClassPathXmlApplicationContext("provider.xml");
         ioc.start();
         try {
-            Thread.sleep(10000000);
+            Thread.sleep(1000000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
