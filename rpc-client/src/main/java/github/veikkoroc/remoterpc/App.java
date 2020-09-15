@@ -9,6 +9,6 @@ public class App {
     public static void main(String[] args) {
         RpcClientProxy proxy = new RpcClientProxy();
         IHelloService iHelloService = proxy.clientProxy(IHelloService.class, "localhost", 8888);
-        System.out.println(iHelloService.sayHello("Mic"));
+        System.out.println(iHelloService.sayHello(" M i c "));
     }
 }
