@@ -10,10 +10,10 @@
         <module name="rpc-simple" />
         <module name="rpc-test" />
         <module name="test-service-provider" />
-        <module name="test-service-consumer" />
-        <module name="test-gmall-interface" />
-        <module name="rpc-api" />
         <module name="rpc-server" />
+        <module name="test-service-consumer" />
+        <module name="rpc-api" />
+        <module name="test-gmall-interface" />
         <module name="rpc-client" />
       </profile>
     </annotationProcessing>
