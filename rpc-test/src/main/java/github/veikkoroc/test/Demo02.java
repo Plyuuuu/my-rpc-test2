@@ -20,6 +20,17 @@ public class Demo02 {
     }
     @Test
     public void test01(){
-
+        Demo02 demo02 = new Demo02();
+        //328638398
+        System.out.println(demo02.hashCode());
+        Demo02 demo021 = new Demo02();
+        System.out.println(demo021.hashCode());
+    }
+    @Test
+    public  void test02(){
+        int y = 10;
+        int x = 10;
+        x--;
+        System.out.printf("%d,%d",--y,x--);
     }
 }
