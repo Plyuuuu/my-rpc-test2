@@ -5,16 +5,14 @@ import github.veikkoroc.proxy.RpcClientProxy;
 import github.veikkoroc.remote.entry.RpcServiceProperties;
 import github.veikkoroc.remote.transport.netty.client.NettyClientTransport;
 import github.veikkoroc.service.UserService;
-import org.junit.Test;
 
-import java.util.Arrays;
 
 /**
  * @author Veikko Roc
  * @version 1.0
  * @date 2020/9/12 15:04
  */
-public class NettyAppClient {
+public class MyRPCClient1 {
     public static void main(String[] args) {
         //数据传输对象
         NettyClientTransport nettyClientTransport = new NettyClientTransport();

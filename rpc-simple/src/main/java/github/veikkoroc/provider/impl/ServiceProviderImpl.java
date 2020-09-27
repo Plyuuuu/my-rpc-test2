@@ -17,6 +17,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ *
+ * 服务提供者：用 Map 存放服务实体
+ *      1、可以注册服务到注册中心：其实就是去Zookeeper创建一个节点 /my-rpc/github.veikkoroc.service.UserService11.0/192.168.1.101:9998
+ *      2、可以在Map中添加服务addService 和获取服务 getService
  * @author Veikko Roc
  * @version 1.0
  * @date 2020/9/8 9:22
@@ -30,7 +34,12 @@ public class ServiceProviderImpl implements ServiceProvider {
      * value: service object
      *      服务对象
      */
-    //serviceMap缓存
+
+    /**
+     * serviceMap缓存
+     *  key:    github.veikkoroc.service.UserService11.0====》接口名+group+版本
+     *  value：  服务实体对象, UserServiceImpl
+     */
     private final Map<String, Object> serviceMap;
     private final Set<String> registeredService;
     private final ServiceRegistry serviceRegistry;
@@ -54,12 +63,12 @@ public class ServiceProviderImpl implements ServiceProvider {
         //服务还没有注册,添加到map缓存
         registeredService.add(rpcServiceName);
         serviceMap.put(rpcServiceName, service);
-        log.info("===========暴露服务: [{}] 和接口:{}", rpcServiceName, service.getClass().getInterfaces());
+        log.info("===========暴露的服务: [{}] 和接口:{}", rpcServiceName, service.getClass().getInterfaces());
     }
 
     @Override
     public Object getService(RpcServiceProperties rpcServiceProperties) {
-        log.info("==========缓存serviceMap中的服务：[{}]",serviceMap);
+        log.info("==========保存serviceMap中的服务：[{}]",serviceMap);
         Object service = serviceMap.get(rpcServiceProperties.getRpcServicePropertiesFields());
         if (null == service) {
             throw new RuntimeException("没有找到指定的服务");
@@ -82,10 +91,16 @@ public class ServiceProviderImpl implements ServiceProvider {
     @Override
     public void publishService(Object service, RpcServiceProperties rpcServiceProperties) {
 
-            log.info("===========要注册的服务[{}] 服务的属性[{}]",service,rpcServiceProperties);
-            String host = "127.0.0.1";//InetAddress.getLocalHost().getHostAddress();//127.0.0.1
+        log.info("===========要注册的服务[{}] 服务的属性[{}]",service,rpcServiceProperties);
 
-            //获取服务对象的接口 interface github.veikkoroc.service.UserService
+        String host = null;//InetAddress.getLocalHost().getHostAddress();//127.0.0.1
+        try {
+            host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        //获取服务对象的接口 interface github.veikkoroc.service.UserService
             Class<?> serviceRelatedInterface = service.getClass().getInterfaces()[0];
 
             //返回 Java Language Specification 中所定义的底层类的规范化名称。github.veikkoroc.service.UserService
@@ -96,7 +111,7 @@ public class ServiceProviderImpl implements ServiceProvider {
             log.info("===========服务的接口 [{}] 服务的属性[{}] ",serviceRelatedInterface,rpcServiceProperties);
             //将服务加入本地缓存中
             this.addService(service, serviceRelatedInterface, rpcServiceProperties);
-            log.info("===========查看本地缓存[{}]",serviceMap);
+            log.info("===========可用的服务[{}]",serviceMap);
             //将服务注册到注册中心
             //   github.veikkoroc.service.UserService11.0,   //192.168.1.101:9998
             serviceRegistry.registryService(rpcServiceProperties.getRpcServicePropertiesFields(), new InetSocketAddress(host, NettyServer.port));

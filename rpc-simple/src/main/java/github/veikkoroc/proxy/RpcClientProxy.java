@@ -52,7 +52,7 @@ public class RpcClientProxy implements InvocationHandler {
 
     @SuppressWarnings("unchecked")
     public <T> T getProxy(Class<T> clazz){
-        return (T) Proxy.newProxyInstance(clazz.getClassLoader(),new Class<?>[]{clazz},this );
+        return (T) Proxy.newProxyInstance(clazz.getClassLoader(),new Class<?>[]{clazz},this);
     }
     @SneakyThrows
     @SuppressWarnings("unchecked")
@@ -66,7 +66,7 @@ public class RpcClientProxy implements InvocationHandler {
         log.info("==========组：[{}]",rpcServiceProperties.getGroup());
         log.info("==========版本：[{}]",rpcServiceProperties.getVersion());
 
-
+        //构建rpcRequest
         RpcRequest rpcRequest = RpcRequest.builder().methodName(method.getName())
                 .parameters(args)
                 .interfaceName(method.getDeclaringClass().getName())
@@ -76,6 +76,7 @@ public class RpcClientProxy implements InvocationHandler {
                 .version(rpcServiceProperties.getVersion())
                 .build();
         RpcResponse<Object> rpcResponse = null;
+
         //Netty传输
         if (clientTransport instanceof NettyClientTransport) {
             CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) clientTransport.sendRpcRequest(rpcRequest);

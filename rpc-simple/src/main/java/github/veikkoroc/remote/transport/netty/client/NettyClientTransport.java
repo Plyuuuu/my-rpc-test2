@@ -14,6 +14,12 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ *
+ *
+ *  该类用于 在注册中心发现服务，获取与服务器通信的通道，发送 RpcRequest
+ *
+ *
+ *
  * 根据Netty传输RpcRequest
  * @author Veikko Roc
  * @version 1.0
@@ -30,7 +36,7 @@ public class NettyClientTransport implements ClientTransport {
 
 
     /**
-     * 未处理的消息
+     * 未处理完的消息
      */
     private final UnProcessedRequests unprocessedRequests;
 

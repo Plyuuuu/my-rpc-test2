@@ -28,6 +28,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,11 +39,21 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component//把NettyServer实例化到IOC
 public class NettyServer implements InitializingBean {
+
     private final KryoSerializer kryoSerializer = new KryoSerializer();
     //NettyServer的端口9998
     public static final int port = 9998;
     //服务端的Ip地址
-    public static String host = "127.0.0.1";//InetAddress.getLocalHost().getHostAddress();
+    public static String host;//InetAddress.getLocalHost().getHostAddress();"127.0.0.1"
+
+    static {
+        try {
+            host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     private ServiceProvider serviceProvider = SingletonFactory.getInstance(ServiceProviderImpl.class);
 
     //注册服务====>服务对象   当前服务的属性

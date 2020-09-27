@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--绑定接口-->
+<mapper namespace="github.veikkoroc.service.OrderService">
+
+    <resultMap id="getOrderByIdMapper" type="github.veikkoroc.entry.Order">
+        <id property="id" column="order_id"></id>
+        <result property="userName" column="order_username"></result>
+        <result property="time" column="order_time"></result>
+        <result property="productName" column="order_productname"></result>
+    </resultMap>
+    <!--绑定接口中的方法-->
+    <select id="getOrderById" resultMap="getOrderByIdMapper">
+        select * from tbl_order where order_id = #{id}
+    </select>
+
+</mapper>
